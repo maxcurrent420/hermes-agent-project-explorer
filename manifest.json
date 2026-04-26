@@ -1,0 +1,13 @@
+{
+  "name": "project-explorer",
+  "label": "Projects",
+  "description": "Browse projects and file structures from your sessions",
+  "icon": "Folder",
+  "version": "1.0.0",
+  "tab": {
+    "path": "/projects",
+    "position": "after:sessions"
+  },
+  "entry": "dist/index.js",
+  "api": "plugin_api.py"
+}
