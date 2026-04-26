@@ -36,6 +36,25 @@ const {
         const [selectedSession, setSelectedSession] = useState(null);
         const [projectPathInput, setProjectPathInput] = useState("");
 
+        // Collapsible tree state
+        const [expandedPaths, setExpandedPaths] = useState(new Set());
+
+        const toggleFolder = useCallback(function(path) {
+            setExpandedPaths(function(prev) {
+                var next = new Set(prev);
+                if (next.has(path)) {
+                    next.delete(path);
+                } else {
+                    next.add(path);
+                }
+                return next;
+            });
+        }, []);
+
+        var resetExpandedPaths = useCallback(function() {
+            setExpandedPaths(new Set());
+        }, []);
+
         const fetchProjects = useCallback(function () {
             setLoading(true);
             setError(null);
@@ -86,10 +105,11 @@ const fetchSessions = useCallback(function () {
         useEffect(function () {
             if (selectedProject) {
                 fetchProjectTree(selectedProject.id);
+                resetExpandedPaths();
             } else {
                 setProjectTree(null);
             }
-        }, [selectedProject, fetchProjectTree]);
+        }, [selectedProject, fetchProjectTree, resetExpandedPaths]);
 
         var filteredProjects = projects;
         if (searchQuery) {
@@ -133,20 +153,70 @@ const fetchSessions = useCallback(function () {
             var indent = depth * 16;
             var isDir = node.type === "directory";
 
-            return React.createElement("div", { key: node.path || node.name },
-                React.createElement("div", {
-                    className: cn("flex items-center gap-1 py-1 text-sm", isDir ? "font-medium" : "text-muted-foreground"),
-                    style: { paddingLeft: indent + "px" }
+            // For directories, check if expanded
+            var isExpanded = isDir && node.path && expandedPaths.has(node.path);
+            var hasChildren = isDir && node.children && node.children.length > 0;
+
+            var containerStyle = {
+                paddingLeft: indent + "px"
+            };
+
+            if (isDir) {
+                // Directory row - clickable to toggle
+                var row = React.createElement("div", {
+                    className: cn(
+                        "flex items-center gap-1 py-1 text-sm font-medium cursor-pointer hover:bg-foreground/5 rounded px-1",
+                        isExpanded && "bg-foreground/5"
+                    ),
+                    style: containerStyle,
+                    onClick: function(e) {
+                        e.stopPropagation();
+                        if (node.path) {
+                            toggleFolder(node.path);
+                        }
+                    }
                 },
-                    isDir
-                        ? React.createElement("span", { className: "text-amber-500" }, "\uD83D\uDCC1")
-                        : React.createElement("span", { className: "text-blue-500" }, "\uD83D\uDCC4"),
+                    // Chevron indicator
+                    React.createElement("span", {
+                        className: cn(
+                            "w-4 text-xs text-muted-foreground transition-transform",
+                            isExpanded ? "rotate-90" : ""
+                        ),
+                        style: { display: "inline-block", width: 16 }
+                    }, hasChildren ? (isExpanded ? "▼" : "▶") : " "),
+                    React.createElement("span", { className: "text-amber-500" }, "\uD83D\uDCC1"),
+                    React.createElement("span", null, node.name),
+                    hasChildren && React.createElement("span", { className: "text-xs text-muted-foreground ml-1" },
+                        "(" + node.children.length + ")"
+                    )
+                );
+
+                // Render children only if expanded
+                if (isExpanded && node.children) {
+                    var childrenDiv = React.createElement("div", { className: "" },
+                        node.children.map(function(child) {
+                            return renderTreeNode(child, depth + 1);
+                        })
+                    );
+                    return React.createElement(React.Fragment, { key: node.path || node.name },
+                        row,
+                        childrenDiv
+                    );
+                }
+
+                return row;
+            } else {
+                // File row - non-clickable
+                return React.createElement("div", {
+                    key: node.path || node.name,
+                    className: cn("flex items-center gap-1 py-1 text-sm text-muted-foreground"),
+                    style: containerStyle
+                },
+                    React.createElement("span", { className: "w-4" }, " "),
+                    React.createElement("span", { className: "text-blue-500" }, "\uD83D\uDCC4"),
                     React.createElement("span", null, node.name)
-                ),
-                isDir && node.children
-                    ? node.children.map(function (child) { return renderTreeNode(child, depth + 1); })
-                    : null
-            );
+                );
+            }
         }
 
         function formatLastUsed(timestamp) {
