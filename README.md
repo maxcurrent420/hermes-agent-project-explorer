@@ -2,6 +2,10 @@
 
 A Hermes Agent dashboard plugin for tracking projects and linking coding sessions to repositories.
 
+<img width="1737" height="890" alt="Screenshot from 2026-04-25 23-09-34" src="https://github.com/user-attachments/assets/a2ad69a2-1a53-47ea-9c9b-20987021cdc3" />
+
+
+
 ## Features
 
 - **Project Tracking**: Automatically discover and track projects from coding sessions
