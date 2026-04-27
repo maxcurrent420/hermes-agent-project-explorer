@@ -310,7 +310,7 @@ Response `200` (not a git repo):
 
 ### Knowledge Base (KB) Search
 
-The KB is optional. When a session is linked to a project, KB generation runs asynchronously in the background. If not yet generated, KB endpoints return `not_started` or 404.
+The KB is optional and requires the included hermes-kb skill. When a session is linked to a project, KB generation runs asynchronously in the background. If not yet generated, KB endpoints return `not_started` or 404.
 
 KB sections: `index`, `concepts`, `architecture`, `modules`, `patterns`
 
