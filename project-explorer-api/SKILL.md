@@ -67,11 +67,14 @@ curl -s "http://localhost:9119/api/plugins/project-explorer/projects/{project_id
 curl -s "http://localhost:9119/api/plugins/project-explorer/projects/{project_id}/kb/search?q=authentication"
 ```
 
-## Getting Session ID
+## Session ID
 
-The session ID is available as `${HERMES_SESSION_ID}` environment variable, or from:
-- Session JSON files in `~/.hermes/sessions/`
-- The `session_id` field in Hermes state
+Hermes automatically substitutes `${HERMES_SESSION_ID}` with the current session ID at runtime. Use it directly in curl commands:
+
+```bash
+curl -s -H "X-Session-ID: ${HERMES_SESSION_ID}" \
+  "http://localhost:9119/api/plugins/project-explorer/current-project"
+```
 
 ## Notes
 
