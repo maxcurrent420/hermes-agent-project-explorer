@@ -38,7 +38,10 @@ Base URL: `http://localhost:9119/api/plugins/project-explorer` (adjust port as n
 
 ## Hermes Agent Integration (Optional)
 
-For easy access to the Project Explorer API from other skills or agents, load the optional skill:
+This plugin includes two optional skills for Hermes Agent:
+
+### project-explorer-api Skill
+For easy access to the Project Explorer API from other skills or agents, load the skill from this plugin:
 
 ```
 /project-explorer-api
@@ -50,7 +53,18 @@ This skill provides curl commands and patterns for:
 - Auto-discovering projects from terminal CWD
 - Searching project knowledge base
 
-See [skill documentation](../skills/autonomous-ai-agents/project-explorer-api/SKILL.md) for details.
+See [skill documentation](project-explorer-api/SKILL.md) for details.
+
+### hermes-kb Skill
+For generating project knowledge base files, load the skill:
+
+```
+/hermes-kb
+```
+
+This skill uses map-reduce architecture to spawn parallel agents for concept, architecture, module, and pattern analysis.
+
+See [skill documentation](hermes-kb/SKILL.md) for details.
 
 ---
 
