@@ -1,13 +1,21 @@
 {
   "name": "project-explorer",
   "label": "Projects",
-  "description": "Browse projects and file structures from your sessions",
+  "description": "Browse projects, track sessions, view LOC/stats, and search project knowledge base",
   "icon": "Folder",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "tab": {
     "path": "/projects",
     "position": "after:sessions"
   },
   "entry": "dist/index.js",
-  "api": "plugin_api.py"
+  "api": "plugin_api.py",
+  "features": [
+    "Project tracking and session linking",
+    "File browser with directory tree",
+    "LOC statistics and file type distribution",
+    "Git status and recent commits",
+    "Knowledge base generation with FTS5 search",
+    "Session activity feed"
+  ]
 }
