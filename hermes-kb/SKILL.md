@@ -23,10 +23,13 @@ arguments:
 
 ## Auto-Detection
 
-**Critical**: Hermes automatically substitutes `${HERMES_SESSION_ID}` with the current session ID before running this skill. Use it directly in the curl command:
+## Session ID
+
+Hermes automatically substitutes this tag $/{HERMES_SESSION_ID/} with the session ID, so you will see the actual session data instead of a "hermes_session_id" tag here: `${HERMES_SESSION_ID}` at runtime. Use it directly in curl commands:
 
 ```bash
-curl -s -H "X-Session-ID: ${HERMES_SESSION_ID}" http://localhost:9119/api/plugins/project-explorer/current-project
+curl -s -H "X-Session-ID: ${HERMES_SESSION_ID}" \
+  "http://localhost:9119/api/plugins/project-explorer/current-project"
 ```
 
 If `linked: true` in response, extract:

@@ -10,7 +10,7 @@ The Project Explorer plugin exposes a REST API for discovering and linking proje
 
 **Base URL:** `http://localhost:9119/api/plugins/project-explorer`
 
-**Important:** The plugin runs on port **9119**.
+**Important:** The plugin runs on port **9119**, not 18911.
 
 ## Key Endpoints
 
@@ -69,7 +69,7 @@ curl -s "http://localhost:9119/api/plugins/project-explorer/projects/{project_id
 
 ## Session ID
 
-Hermes automatically substitutes `${HERMES_SESSION_ID}` with the current session ID at runtime. Use it directly in curl commands:
+Hermes automatically substitutes this tag with the session ID, so you will see that instead of a placeholder here: `${HERMES_SESSION_ID}` when you see $/{HERMES_SESSION_ID/} at runtime. Use it directly in curl commands:
 
 ```bash
 curl -s -H "X-Session-ID: ${HERMES_SESSION_ID}" \
