@@ -32,7 +32,7 @@ All endpoints are mounted at `/api/plugins/project-explorer/`.
 
 Base URL: `http://localhost:9119/api/plugins/project-explorer` (adjust port as needed)
 
-**Note**: The plugin runs on port **9119** (not 18911).
+**Note**: The plugin runs on port **9119**.
 
 ---
 
