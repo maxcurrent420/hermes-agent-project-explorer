@@ -10,7 +10,7 @@ The Project Explorer plugin exposes a REST API for discovering and linking proje
 
 **Base URL:** `http://localhost:9119/api/plugins/project-explorer`
 
-**Important:** The plugin runs on port **9119**, not 18911.
+**Important:** The plugin runs on port **9119**.
 
 ## Key Endpoints
 
