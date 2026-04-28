@@ -4,6 +4,17 @@ description: "Query and manage project links via the Project Explorer dashboard 
 trigger: "When needing to query the Project Explorer plugin API, discover linked projects, or link a session to a project directory"
 ---
 
+## Session ID
+
+Hermes automatically substitutes this tag $/{HERMES_SESSION_ID/} with the session ID, so you will see the actual session data instead of a "hermes_session_id" tag here: `${HERMES_SESSION_ID}` at runtime. 
+That means your current session ID is `${HERMES_SESSION_ID}`
+Use it directly in curl commands:
+
+```bash
+curl -s -H "X-Session-ID: ${HERMES_SESSION_ID}" \
+  "http://localhost:9119/api/plugins/project-explorer/current-project"
+```
+
 # Project Explorer Plugin API
 
 The Project Explorer plugin exposes a REST API for discovering and linking projects to Hermes sessions.
@@ -67,14 +78,8 @@ curl -s "http://localhost:9119/api/plugins/project-explorer/projects/{project_id
 curl -s "http://localhost:9119/api/plugins/project-explorer/projects/{project_id}/kb/search?q=authentication"
 ```
 
-## Session ID
 
-Hermes automatically substitutes this tag with the session ID, so you will see that instead of a placeholder here: `${HERMES_SESSION_ID}` when you see $/{HERMES_SESSION_ID/} at runtime. Use it directly in curl commands:
 
-```bash
-curl -s -H "X-Session-ID: ${HERMES_SESSION_ID}" \
-  "http://localhost:9119/api/plugins/project-explorer/current-project"
-```
 
 ## Notes
 

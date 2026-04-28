@@ -25,12 +25,15 @@ arguments:
 
 ## Session ID
 
-Hermes automatically substitutes this tag $/{HERMES_SESSION_ID/} with the session ID, so you will see the actual session data instead of a "hermes_session_id" tag here: `${HERMES_SESSION_ID}` at runtime. Use it directly in curl commands:
+Hermes automatically substitutes this tag $/{HERMES_SESSION_ID/} with the session ID, so you will see the actual session data instead of a "hermes_session_id" tag here: `${HERMES_SESSION_ID}` at runtime. 
+That means your current session ID is `${HERMES_SESSION_ID}`
+Use it directly in curl commands:
 
 ```bash
 curl -s -H "X-Session-ID: ${HERMES_SESSION_ID}" \
   "http://localhost:9119/api/plugins/project-explorer/current-project"
 ```
+
 
 If `linked: true` in response, extract:
 - `project.path` → use as PROJECT_PATH
