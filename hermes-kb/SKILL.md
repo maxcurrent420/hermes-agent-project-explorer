@@ -100,7 +100,7 @@ mkdir -p "$KB_DIR"
 
 ## Phase 2: Delegate to Parallel Agents (CRITICAL)
 
-**IMPORTANT - Concurrency limit**: The delegate_task default max is 3 concurrent children. If you need 4+ agents, use two separate delegate_task calls.
+**IMPORTANT - Concurrency limit**: The delegate_task default max is 3 concurrent children. If you need 4+ agents, use two separate sequential delegate_task calls.
 
 **Spawn all agents in parallel using TWO delegate_task calls (due to 3 concurrent limit):**
 
